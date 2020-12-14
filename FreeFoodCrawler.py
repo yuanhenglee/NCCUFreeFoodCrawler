@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import webbrowser
 
 url_head = "https://moltke.nccu.edu.tw/Registration/"
 matches = ['食物','餐盒','午餐','晚餐','供餐','點心']
@@ -15,7 +16,7 @@ def checkFood(short_url):
     for paragraph in soup.findAll('p'):
         content = paragraph.text.strip()
         if any(x in content for x in matches):
-            return short_url
+            return url_head+str(short_url)
     return None
 
 # new event webpage
@@ -29,6 +30,6 @@ for h4 in soup.findAll('h4'):
 
 for i in conference_list:
     if(checkFood(i)):
-        print( url_head + str(i))
+        webbrowser.get().open_new_tab(checkFood(i))
 
 
