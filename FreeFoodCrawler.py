@@ -10,13 +10,15 @@ def getSoup(url):
     soup = BeautifulSoup(req.text,'html.parser')
     return soup
 
-def checkFood(short_url):
-    soup = getSoup( url_head + str(short_url))
+def checkFood(url):
+    soup = getSoup( url )
     # print(soup.prettify())
     for paragraph in soup.findAll('p'):
         content = paragraph.text.strip()
         if any(x in content for x in matches):
-            return url_head+str(short_url)
+            print(soup.title.string)
+            print(url)
+            return url
     return None
 
 # new event webpage
@@ -26,10 +28,10 @@ soup = getSoup("https://moltke.nccu.edu.tw/Registration/registration.do?action=n
 conference_list = []
 for h4 in soup.findAll('h4'):
     for a in h4.findAll('a'):
-        conference_list.append(a['href'])
+        conference_list.append(url_head + str(a['href']))
 
 for i in conference_list:
     if(checkFood(i)):
-        webbrowser.get().open_new_tab(checkFood(i))
+        webbrowser.get().open_new_tab(i)
 
 
