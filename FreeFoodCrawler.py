@@ -22,7 +22,7 @@ def checkFood(url):
     return None
 
 # new event webpage
-soup = getSoup("https://moltke.nccu.edu.tw/Registration/registration.do?action=new")
+soup = getSoup(url_head+"registration.do?action=new")
 
 # Get all events
 conference_list = []
